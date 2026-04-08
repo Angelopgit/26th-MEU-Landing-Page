@@ -241,6 +241,41 @@ body {
   animation-delay: 1.2s;
 }
 
+/* ─── Sword glare effect on hero title ─── */
+@keyframes swordGlare {
+  0%   { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+  8%   { opacity: 1; }
+  40%  { transform: translateX(120%) skewX(-20deg); opacity: 0.6; }
+  41%  { opacity: 0; }
+  100% { transform: translateX(120%) skewX(-20deg); opacity: 0; }
+}
+
+.hero-title-glare {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.hero-title-glare::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 45%;
+  height: 120%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(220, 38, 38, 0.08) 38%,
+    rgba(255, 120, 120, 0.28) 50%,
+    rgba(255, 200, 200, 0.18) 55%,
+    rgba(220, 38, 38, 0.06) 65%,
+    transparent 80%
+  );
+  animation: swordGlare 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* ─── Shimmer effect ─── */
 @keyframes shimmer {
   0% { transform: translateX(-100%); }

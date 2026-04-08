@@ -45,10 +45,10 @@ export default function Hero() {
       <div style={{ position: 'absolute', bottom: 80, right: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: 'rgba(22,36,72,0.8)', userSelect: 'none' }}>ALL ACCESS LOGGED</div>
 
       {/* Main content */}
-      <div className="hero-content" style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '0 24px', width: '100%' }}>
+      <div className="hero-content" style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '0 24px', width: '100%' }}>
         {/* Logo with gold ring */}
         <motion.div initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, ease: [0.16,1,0.3,1] }}
-          style={{ display: 'inline-block', marginBottom: 40, position: 'relative' }}>
+          style={{ display: 'block', marginBottom: 40, position: 'relative' }}>
           {/* Ambient glow */}
           <div style={{ position: 'absolute', inset: -20, borderRadius: '50%', background: 'radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
           {/* Outer ring */}
@@ -60,7 +60,8 @@ export default function Hero() {
 
         {/* Title */}
         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-          style={{ fontFamily: 'Inter, sans-serif', fontWeight: 800, fontSize: 'clamp(1.1rem, 3.8vw, 3.75rem)', color: '#e8edf5', lineHeight: 1.1, marginBottom: 16, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>
+          className="hero-title-glare"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 'clamp(1.4rem, 4.5vw, 4.5rem)', color: '#e8edf5', lineHeight: 1.05, marginBottom: 16, letterSpacing: '0.04em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
           26th Marine Expeditionary Unit (SOC)
         </motion.h1>
 
