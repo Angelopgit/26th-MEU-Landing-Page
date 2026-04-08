@@ -1,4 +1,17 @@
-const requirements = [
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Link } from 'react-router-dom'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const CheckIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+  </svg>
+)
+
+const REQS = [
   'Own Arma Reforger (PC, PS5, or Xbox)',
   'Willingness to participate in operations',
   'Ability to follow structure and teamwork',
@@ -7,72 +20,53 @@ const requirements = [
 ]
 
 export default function Requirements() {
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.req-item', { opacity: 0, x: -20, duration: 0.5, stagger: 0.1, scrollTrigger: { trigger: '.req-list', start: 'top 80%' } })
+      gsap.from('.req-heading', { opacity: 0, y: 30, duration: 0.7, scrollTrigger: { trigger: '.req-heading', start: 'top 85%' } })
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="join" className="relative section-gap flex flex-col items-center">
+    <section id="join" ref={sectionRef} style={{ padding: '120px 24px', background: '#06091a', position: 'relative' }}>
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(ellipse at 50% 50%, rgba(220,38,38,0.04) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
-      {/* Header */}
-      <div className="fade-section flex flex-col items-center" style={{ marginBottom: '5rem' }}>
-        <div className="flex items-center gap-4 mb-5">
-          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-r from-transparent to-crimson-700/60" />
-          <span className="text-crimson-400 text-[11px] font-medium tracking-[0.4em] uppercase">
-            Enlistment
-          </span>
-          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-crimson-700/60" />
+      <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+        <div className="req-heading">
+          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.7rem', letterSpacing: '0.3em', color: '#dc2626', textTransform: 'uppercase', marginBottom: 12 }}>ENLISTMENT</div>
+          <h2 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', color: '#e8edf5', marginBottom: 48, letterSpacing: '-0.02em' }}>Requirements</h2>
         </div>
-        <h2 className="text-white text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center">
-          Requirements
-        </h2>
-      </div>
 
-      {/* List */}
-      <div className="fade-section delay-2 req-panel w-full max-w-lg sm:max-w-xl flex flex-col" style={{ padding: '2.5rem 3rem' }}>
-        {requirements.map((req, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-5 py-5 sm:py-6 border-b border-navy-800/30 last:border-0 group cursor-default"
-          >
-            {/* Step number */}
-            <span className="flex-shrink-0 text-[10px] font-mono text-navy-600 tracking-wider w-5 text-right group-hover:text-crimson-700 transition-colors duration-300">
-              {String(i + 1).padStart(2, '0')}
-            </span>
+        <div className="req-list" style={{
+          background: 'rgba(9,15,30,0.85)', backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(22,36,72,0.8)', borderRadius: 8, padding: '40px',
+          marginBottom: 40, textAlign: 'left', position: 'relative',
+        }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, width: 20, height: 20, borderTop: '2px solid rgba(212,175,55,0.3)', borderLeft: '2px solid rgba(212,175,55,0.3)' }} />
+          <div style={{ position: 'absolute', bottom: 0, right: 0, width: 20, height: 20, borderBottom: '2px solid rgba(212,175,55,0.3)', borderRight: '2px solid rgba(212,175,55,0.3)' }} />
 
-            {/* Checkmark */}
-            <div className="flex-shrink-0 w-6 h-6 border border-navy-700/50 flex items-center justify-center group-hover:border-crimson-600/60 group-hover:bg-crimson-900/20 transition-all duration-300">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="w-3 h-3 text-crimson-700 group-hover:text-crimson-400 transition-colors duration-300"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 12.75 6 6 9-13.5"
-                />
-              </svg>
+          {REQS.map((req, i) => (
+            <div key={i} className="req-item" style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 0', borderBottom: i < REQS.length - 1 ? '1px solid rgba(22,36,72,0.5)' : 'none', transition: 'color 0.2s', cursor: 'default' }}
+              onMouseEnter={e => { const s = e.currentTarget.querySelector('span'); if (s) s.style.color = '#e8edf5' }}
+              onMouseLeave={e => { const s = e.currentTarget.querySelector('span'); if (s) s.style.color = '#64748b' }}
+            >
+              <CheckIcon />
+              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9375rem', color: '#64748b', transition: 'color 0.2s' }}>{req}</span>
             </div>
+          ))}
+        </div>
 
-            <span className="text-slate-400 text-sm sm:text-[15px] font-light tracking-wide group-hover:text-slate-200 transition-colors duration-300">
-              {req}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Apply Now */}
-      <div className="fade-section delay-3" style={{ marginTop: '4rem' }}>
-        <a
-          href="/perscom"
-          className="btn-glow group relative inline-block border border-crimson-700 text-crimson-400 font-semibold tracking-widest uppercase overflow-hidden transition-all duration-500 hover:border-crimson-500 hover:text-crimson-300 hover:shadow-[0_0_50px_rgba(196,40,40,0.35)]"
-          style={{ padding: '1.25rem 4rem', fontSize: '1rem', letterSpacing: '0.3em' }}
+        <Link to="/apply"
+          style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '14px 48px', background: 'linear-gradient(135deg, #dc2626, #b91c1c)', color: '#fff', fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: '0.875rem', letterSpacing: '0.1em', textTransform: 'uppercase', borderRadius: 4, textDecoration: 'none', transition: 'all 0.3s', boxShadow: '0 0 30px rgba(220,38,38,0.3)', position: 'relative', overflow: 'hidden' }}
+          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 40px rgba(220,38,38,0.4)' }}
+          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 30px rgba(220,38,38,0.3)' }}
         >
-          <span className="absolute inset-0 bg-crimson-900/40 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          <span className="relative z-10">Apply Now</span>
-        </a>
+          APPLY NOW
+        </Link>
       </div>
-
     </section>
   )
 }

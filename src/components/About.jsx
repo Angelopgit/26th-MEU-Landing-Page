@@ -1,56 +1,51 @@
-export default function About() {
-  return (
-    <section id="about" className="relative section-gap flex flex-col items-center">
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-      {/* Header */}
-      <div className="fade-section flex flex-col items-center" style={{ marginBottom: '5rem' }}>
-        <div className="flex items-center gap-4 mb-5">
-          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-r from-transparent to-crimson-700/60" />
-          <span className="text-crimson-400 text-[11px] font-medium tracking-[0.4em] uppercase">
-            About Us
-          </span>
-          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-crimson-700/60" />
+gsap.registerPlugin(ScrollTrigger)
+
+export default function About() {
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.about-panel', { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: '.about-panel', start: 'top 80%' } })
+      gsap.from('.about-eyebrow', { opacity: 0, y: 20, duration: 0.6, scrollTrigger: { trigger: '.about-eyebrow', start: 'top 85%' } })
+      gsap.from('.about-title', { opacity: 0, y: 30, duration: 0.7, delay: 0.1, scrollTrigger: { trigger: '.about-title', start: 'top 85%' } })
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section id="about" ref={sectionRef} style={{ padding: '120px 24px', background: '#06091a', position: 'relative' }}>
+      {/* Subtle bg texture */}
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(ellipse at center, rgba(220,38,38,0.03) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+        <div className="about-eyebrow" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.7rem', letterSpacing: '0.3em', color: '#dc2626', textTransform: 'uppercase', marginBottom: 16 }}>
+          WHO WE ARE
         </div>
-        <h2 className="text-white text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center">
+        <h2 className="about-title" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', color: '#e8edf5', marginBottom: 48, letterSpacing: '-0.02em' }}>
           Who We Are
         </h2>
-      </div>
 
-      {/* Body text with side accent */}
-      <div className="fade-section delay-2 relative w-full max-w-3xl">
-        {/* Left accent line */}
-        <div className="absolute left-0 top-6 bottom-6 w-[2px] bg-gradient-to-b from-transparent via-crimson-700/40 to-transparent hidden md:block" />
+        {/* Divider */}
+        <div style={{ width: 60, height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.4), transparent)', margin: '0 auto 48px' }} />
 
-        <div className="content-panel flex flex-col items-center gap-8 text-slate-400 text-base sm:text-lg md:text-xl leading-[1.9] font-light text-center md:text-left" style={{ padding: '3.5rem 3rem' }}>
-          <p>
-            The <span className="text-crimson-400">26th Marine Expeditionary Unit (SOC)</span> is a dedicated Arma Reforger
-            realism unit focused on delivering an immersive and structured military
-            simulation experience. Built around teamwork, tactical gameplay, and
-            authenticity, we bring players together in a cooperative environment
-            that reflects the discipline and coordination of real-world Marine
-            operations.
-          </p>
-          <p>
-            Our unit is designed for players who value immersion without
-            unnecessary rigidity — balancing serious, mission-focused gameplay
-            with a relaxed and welcoming community. Whether operating in infantry
-            squads or supporting elements, every member plays a role in the
-            success of the mission.
-          </p>
-          <p>
-            Since our launch, we've opened our doors to PC, PS5 & Xbox players
-            who are ready to commit to a higher standard of teamwork,
-            communication, and tactical execution.
+        <div className="about-panel" style={{
+          background: 'rgba(9,15,30,0.85)', backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(22,36,72,0.8)', borderRadius: 8, padding: '40px 48px',
+          position: 'relative',
+        }}>
+          {/* Corner bracket top-left */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: 20, height: 20, borderTop: '2px solid rgba(212,175,55,0.3)', borderLeft: '2px solid rgba(212,175,55,0.3)' }} />
+          {/* Corner bracket bottom-right */}
+          <div style={{ position: 'absolute', bottom: 0, right: 0, width: 20, height: 20, borderBottom: '2px solid rgba(212,175,55,0.3)', borderRight: '2px solid rgba(212,175,55,0.3)' }} />
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', lineHeight: 1.8, color: '#94a3b8' }}>
+            The <span style={{ color: '#dc2626', fontWeight: 600 }}>26th Marine Expeditionary Unit (SOC)</span> is a dedicated Arma Reforger realism unit built around structured tactical gameplay and authenticity — bringing players together in a cooperative environment that reflects the discipline and coordination of real-world military operations. Whether infantry, squad elements, or supporting roles, every member plays a critical part in the success of the mission. Since our launch we've opened our doors to PC, PS5 &amp; Xbox players who are ready to commit to a higher level of teamwork and tactical execution.
           </p>
         </div>
       </div>
-
-      {/* Decorative accent */}
-      <div className="fade-section delay-3 mt-14 sm:mt-16 flex items-center gap-3">
-        <div className="w-2 h-2 border border-crimson-700/40 rotate-45" />
-        <div className="h-[1px] w-20 bg-gradient-to-r from-crimson-700/40 to-transparent" />
-      </div>
-
     </section>
   )
 }

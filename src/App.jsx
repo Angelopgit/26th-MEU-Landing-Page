@@ -1,36 +1,42 @@
+import { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Lenis from 'lenis'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Pillars from './components/Pillars'
+import Gallery from './components/Gallery'
 import Requirements from './components/Requirements'
 import Playstyle from './components/Playstyle'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import Operations from './pages/Operations'
-import { useScrollAnimation } from './hooks/useScrollAnimation'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function HomePage() {
-  useScrollAnimation()
+  useEffect(() => {
+    const lenis = new Lenis()
+    lenis.on('scroll', ScrollTrigger.update)
+    const tick = (time) => lenis.raf(time * 1000)
+    gsap.ticker.add(tick)
+    gsap.ticker.lagSmoothing(0)
+    return () => {
+      gsap.ticker.remove(tick)
+      lenis.destroy()
+    }
+  }, [])
 
   return (
-    <div className="min-h-screen bg-navy-950 relative">
-      <div className="grid-pattern" />
-      <div className="noise-overlay" />
+    <div style={{ minHeight: '100vh', background: '#06091a', position: 'relative', overflowX: 'hidden' }}>
       <Navbar />
       <Hero />
       <About />
-      <div className="flex justify-center px-6">
-        <div className="section-divider" />
-      </div>
       <Pillars />
-      <div className="flex justify-center px-6">
-        <div className="section-divider" />
-      </div>
+      <Gallery />
       <Requirements />
-      <div className="flex justify-center px-6">
-        <div className="section-divider" />
-      </div>
       <Playstyle />
       <CTA />
       <Footer />

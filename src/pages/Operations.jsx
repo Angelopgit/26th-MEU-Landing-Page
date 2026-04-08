@@ -309,23 +309,32 @@ function OpCard({ op }) {
         onMouseMove={onMouseMove}
         className="op-card relative border backdrop-blur-md overflow-hidden"
         style={{
-          borderColor: isUpcoming ? 'rgba(139,26,26,0.6)' : 'rgba(26,47,85,0.4)',
+          borderColor: isUpcoming ? 'rgba(220,38,38,0.5)' : 'rgba(22,36,72,0.8)',
           background: isUpcoming
-            ? 'linear-gradient(135deg, rgba(61,10,10,0.5) 0%, rgba(10,22,40,0.75) 100%)'
-            : 'linear-gradient(135deg, rgba(13,27,42,0.65) 0%, rgba(10,22,40,0.75) 100%)',
+            ? 'rgba(9,15,30,0.9)'
+            : 'rgba(9,15,30,0.85)',
+          borderRadius: 8,
           transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transition: 'transform 0.15s ease',
           boxShadow: isUpcoming
-            ? '0 4px 32px rgba(107,17,17,0.2), inset 0 1px 0 rgba(139,26,26,0.15)'
-            : '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(90,127,181,0.07)',
+            ? '0 4px 32px rgba(220,38,38,0.15), 0 0 0 1px rgba(220,38,38,0.1)'
+            : '0 4px 24px rgba(0,0,0,0.3)',
         }}
       >
         {/* Top accent */}
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0, height: 2,
           background: isUpcoming
-            ? 'linear-gradient(to right, transparent, rgba(196,40,40,0.9), transparent)'
-            : 'linear-gradient(to right, transparent, rgba(61,95,153,0.5), transparent)',
+            ? 'linear-gradient(to right, transparent, rgba(220,38,38,0.8), transparent)'
+            : 'linear-gradient(to right, transparent, rgba(22,36,72,0.8), transparent)',
         }} />
+        {/* Gold corner brackets on active op */}
+        {isUpcoming && (
+          <>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: 16, height: 16, borderTop: '2px solid rgba(212,175,55,0.3)', borderLeft: '2px solid rgba(212,175,55,0.3)' }} />
+            <div style={{ position: 'absolute', bottom: 0, right: 0, width: 16, height: 16, borderBottom: '2px solid rgba(212,175,55,0.3)', borderRight: '2px solid rgba(212,175,55,0.3)' }} />
+          </>
+        )}
 
         {/* Operation image header — Fire & Sword only */}
         {isFireAndSword && (
@@ -351,21 +360,28 @@ function OpCard({ op }) {
 
         <div className="p-6 sm:p-8">
           {/* Header row */}
-          <div className="flex items-start justify-between gap-4 mb-4">
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
             <div>
-              <p className="text-[10px] font-mono tracking-[0.25em] uppercase mb-1.5" style={{ color: 'rgba(90,127,181,0.5)' }}>
-                OP-{String(op.id).padStart(3, '0')} &nbsp;·&nbsp; {op.theater}
+              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.625rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(148,163,184,0.4)', marginBottom: 6 }}>
+                OP-{String(op.id).padStart(3, '0')} · {op.theater}
               </p>
-              <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight leading-tight">
+              <h3 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: 'clamp(1rem, 1.5vw, 1.25rem)', color: '#e8edf5', lineHeight: 1.3, letterSpacing: '-0.01em' }}>
                 {op.name}
               </h3>
             </div>
             <span
-              className="flex-shrink-0 px-2.5 py-1 text-[10px] font-mono tracking-[0.15em] uppercase border whitespace-nowrap"
               style={{
-                color: isUpcoming ? 'rgba(196,40,40,0.95)' : 'rgba(90,127,181,0.8)',
-                borderColor: isUpcoming ? 'rgba(139,26,26,0.55)' : 'rgba(26,47,85,0.55)',
-                background: isUpcoming ? 'rgba(61,10,10,0.45)' : 'rgba(13,27,42,0.5)',
+                flexShrink: 0,
+                padding: '4px 10px',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: '0.625rem',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                border: `1px solid ${isUpcoming ? 'rgba(220,38,38,0.5)' : 'rgba(22,36,72,0.6)'}`,
+                borderRadius: 4,
+                whiteSpace: 'nowrap',
+                color: isUpcoming ? '#dc2626' : 'rgba(148,163,184,0.6)',
+                background: isUpcoming ? 'rgba(220,38,38,0.08)' : 'rgba(13,20,38,0.6)',
               }}
             >
               {op.status === 'active' ? '● Active' : op.status === 'upcoming' ? '● Pending' : '✓ Complete'}
@@ -373,28 +389,28 @@ function OpCard({ op }) {
           </div>
 
           {/* Dates */}
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono mb-5" style={{ color: 'rgba(148,163,184,0.45)' }}>
-            <span>START &nbsp;<span style={{ color: 'rgba(148,163,184,0.75)' }}>{formatDate(op.startDate)}</span></span>
-            <span style={{ color: 'rgba(26,47,85,0.8)' }}>|</span>
-            <span>END &nbsp;<span style={{ color: 'rgba(148,163,184,0.75)' }}>{formatDate(op.endDate)}</span></span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 16px', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.6875rem', marginBottom: 20, color: 'rgba(148,163,184,0.35)' }}>
+            <span>START &nbsp;<span style={{ color: 'rgba(148,163,184,0.7)' }}>{formatDate(op.startDate)}</span></span>
+            <span style={{ color: 'rgba(22,36,72,0.8)' }}>|</span>
+            <span>END &nbsp;<span style={{ color: 'rgba(148,163,184,0.7)' }}>{formatDate(op.endDate)}</span></span>
           </div>
 
           {/* Description */}
-          <p className="text-slate-500 text-sm sm:text-[15px] leading-relaxed font-light">
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9375rem', lineHeight: 1.7, color: '#64748b', fontWeight: 300 }}>
             {op.description}
           </p>
 
           {/* Footer stats */}
           {(op.participants || op.outcome) && (
-            <div className="flex flex-wrap gap-5 pt-4 mt-4 border-t text-[11px] font-mono" style={{ borderColor: 'rgba(26,47,85,0.25)' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, paddingTop: 16, marginTop: 16, borderTop: '1px solid rgba(22,36,72,0.4)', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.6875rem' }}>
               {op.participants && (
-                <span style={{ color: 'rgba(100,116,139,0.7)' }}>
-                  PERSONNEL &nbsp;<span className="text-slate-400">{op.participants}</span>
+                <span style={{ color: 'rgba(100,116,139,0.6)' }}>
+                  PERSONNEL &nbsp;<span style={{ color: '#94a3b8' }}>{op.participants}</span>
                 </span>
               )}
               {op.outcome && (
-                <span style={{ color: 'rgba(100,116,139,0.7)' }}>
-                  OUTCOME &nbsp;<span className="text-crimson-600">{op.outcome}</span>
+                <span style={{ color: 'rgba(100,116,139,0.6)' }}>
+                  OUTCOME &nbsp;<span style={{ color: '#dc2626' }}>{op.outcome}</span>
                 </span>
               )}
             </div>
@@ -402,7 +418,7 @@ function OpCard({ op }) {
 
           {/* Hover hint */}
           {isFireAndSword && (
-            <p style={{ marginTop: '1rem', fontFamily: 'monospace', fontSize: '9px', letterSpacing: '0.25em', color: 'rgba(196,40,40,0.35)', textTransform: 'uppercase' }}>
+            <p style={{ marginTop: '1rem', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.5625rem', letterSpacing: '0.25em', color: 'rgba(220,38,38,0.35)', textTransform: 'uppercase' }}>
               ↑ HOVER FOR ENEMY INTEL
             </p>
           )}
@@ -653,7 +669,7 @@ export default function Operations() {
   const totalPersonnel = past.reduce((s, o) => s + (o.participants || 0), 0)
 
   return (
-    <div className="relative min-h-screen" style={{ background: '#050d18' }}>
+    <div className="relative min-h-screen" style={{ background: '#06091a' }}>
 
       {/* Three.js Globe — fixed full-screen background */}
       <canvas
@@ -667,7 +683,7 @@ export default function Operations() {
         className="fixed inset-0 pointer-events-none"
         style={{
           zIndex: 1,
-          background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(5,13,24,0.7) 100%)',
+          background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(6,9,26,0.75) 100%)',
         }}
       />
 
@@ -682,34 +698,34 @@ export default function Operations() {
 
           {/* ── Page Header ── */}
           <div className="text-center mb-24">
-            <div className="flex items-center justify-center gap-4 mb-5">
-              <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-crimson-700/60" />
-              <span className="text-crimson-400 text-[11px] font-mono tracking-[0.4em] uppercase label-scan px-2">
-                26th MEU (SOC)
-              </span>
-              <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-crimson-700/60" />
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.7rem', letterSpacing: '0.3em', color: '#dc2626', textTransform: 'uppercase', marginBottom: 16 }}>
+              26TH MEU (SOC)
             </div>
 
-            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+            <h1 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: '#e8edf5', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 24 }}>
               Operations Log
             </h1>
 
+            <div style={{ width: 60, height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.4), transparent)', margin: '0 auto 24px' }} />
+
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '3rem' }}>
-              <p className="text-slate-500 font-light tracking-wide" style={{ textAlign: 'center', maxWidth: '36rem', fontSize: '1.125rem' }}>
+              <p style={{ textAlign: 'center', maxWidth: '36rem', fontSize: '1.0625rem', color: '#64748b', fontFamily: 'Inter, sans-serif', lineHeight: 1.7, fontWeight: 300 }}>
                 Operational record for the 26th Marine Expeditionary Unit. All past engagements and forthcoming deployments.
               </p>
             </div>
 
             {/* Stats */}
-            <div className="flex items-center justify-center gap-10 sm:gap-20">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(2rem, 5vw, 5rem)', flexWrap: 'wrap' }}>
               {[
                 { label: 'Ops Completed', value: 0 },
                 { label: 'Upcoming', value: upcoming.length },
                 { label: 'Personnel Deployed', value: totalPersonnel },
               ].map(stat => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-3xl sm:text-4xl font-bold text-crimson-500 tabular-nums">{stat.value}</p>
-                  <p className="text-[11px] font-mono tracking-[0.2em] uppercase mt-1" style={{ color: 'rgba(100,116,139,0.6)' }}>
+                <div key={stat.label} style={{ textAlign: 'center', background: 'rgba(9,15,30,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(22,36,72,0.8)', borderRadius: 8, padding: '20px 32px', position: 'relative' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: 12, height: 12, borderTop: '1px solid rgba(212,175,55,0.3)', borderLeft: '1px solid rgba(212,175,55,0.3)' }} />
+                  <div style={{ position: 'absolute', bottom: 0, right: 0, width: 12, height: 12, borderBottom: '1px solid rgba(212,175,55,0.3)', borderRight: '1px solid rgba(212,175,55,0.3)' }} />
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', fontWeight: 800, color: '#dc2626', lineHeight: 1, marginBottom: 8, fontVariantNumeric: 'tabular-nums' }}>{stat.value}</p>
+                  <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.625rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(100,116,139,0.7)' }}>
                     {stat.label}
                   </p>
                 </div>
@@ -719,15 +735,15 @@ export default function Operations() {
 
           {/* ── Upcoming Operations ── */}
           {upcoming.length > 0 && (
-            <section className="mb-20">
-              <div className="flex items-center gap-4 mb-8">
-                <span className="text-[11px] font-mono tracking-[0.3em] uppercase glow-pulse-red" style={{ color: 'rgba(196,40,40,0.9)' }}>
+            <section style={{ marginBottom: '5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 32 }}>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.6875rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(220,38,38,0.9)', animation: 'glow-pulse 3s ease-in-out infinite' }}>
                   ● ACTIVE
                 </span>
-                <h2 className="text-white text-2xl sm:text-3xl font-bold tracking-tight">
+                <h2 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)', color: '#e8edf5', letterSpacing: '-0.02em' }}>
                   Upcoming Operations
                 </h2>
-                <div className="flex-1 h-[1px] bg-gradient-to-r from-crimson-800/50 to-transparent" />
+                <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, rgba(220,38,38,0.4), transparent)' }} />
               </div>
               {/* Single card, centered */}
               <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -740,45 +756,56 @@ export default function Operations() {
 
           {/* ── Past Operations ── */}
           <section>
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-white text-2xl sm:text-3xl font-bold tracking-tight">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 32 }}>
+              <h2 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)', color: '#e8edf5', letterSpacing: '-0.02em' }}>
                 Past Operations
               </h2>
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-navy-700/50 to-transparent" />
+              <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, rgba(22,36,72,0.6), transparent)' }} />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {past.map(op => (
                 <div
                   key={op.id}
-                  className="relative border backdrop-blur-md overflow-hidden"
                   style={{
-                    borderColor: 'rgba(26,47,85,0.4)',
-                    background: 'linear-gradient(135deg, rgba(13,27,42,0.65) 0%, rgba(10,22,40,0.75) 100%)',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(90,127,181,0.07)',
+                    position: 'relative',
+                    background: 'rgba(9,15,30,0.85)',
+                    backdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(22,36,72,0.8)',
+                    borderRadius: 8,
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
                   }}
                 >
-                  {/* Top accent */}
-                  <div className="absolute top-0 left-0 right-0 h-[2px]" style={{
-                    background: 'linear-gradient(to right, transparent, rgba(61,95,153,0.5), transparent)',
-                  }} />
+                  {/* Top accent line */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(to right, transparent, rgba(22,36,72,0.8), transparent)' }} />
+                  {/* Gold corner brackets */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: 16, height: 16, borderTop: '2px solid rgba(212,175,55,0.2)', borderLeft: '2px solid rgba(212,175,55,0.2)' }} />
+                  <div style={{ position: 'absolute', bottom: 0, right: 0, width: 16, height: 16, borderBottom: '2px solid rgba(212,175,55,0.2)', borderRight: '2px solid rgba(212,175,55,0.2)' }} />
 
                   <div className="p-6 sm:p-8">
                     {/* Header row */}
-                    <div className="flex items-start justify-between gap-4 mb-4">
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
                       <div>
-                        <p className="text-[10px] font-mono tracking-[0.25em] uppercase mb-1.5" style={{ color: 'rgba(90,127,181,0.5)' }}>
-                          OP-{String(op.id).padStart(3, '0')} &nbsp;·&nbsp; {op.theater}
+                        <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.625rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(148,163,184,0.35)', marginBottom: 6 }}>
+                          OP-{String(op.id).padStart(3, '0')} · {op.theater}
                         </p>
-                        <h3 className="text-lg sm:text-xl font-mono font-bold tracking-[0.12em] leading-tight" style={{ color: 'rgba(90,127,181,0.35)' }}>
+                        <h3 style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: 'clamp(1rem, 1.5vw, 1.125rem)', letterSpacing: '0.12em', color: 'rgba(22,36,72,0.8)', lineHeight: 1.3 }}>
                           ██████ █████████
                         </h3>
                       </div>
                       <span
-                        className="flex-shrink-0 px-2.5 py-1 text-[10px] font-mono tracking-[0.15em] uppercase border whitespace-nowrap"
                         style={{
-                          color: 'rgba(90,127,181,0.8)',
-                          borderColor: 'rgba(26,47,85,0.55)',
-                          background: 'rgba(13,27,42,0.5)',
+                          flexShrink: 0,
+                          padding: '4px 10px',
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: '0.625rem',
+                          letterSpacing: '0.15em',
+                          textTransform: 'uppercase',
+                          border: '1px solid rgba(22,36,72,0.6)',
+                          borderRadius: 4,
+                          whiteSpace: 'nowrap',
+                          color: 'rgba(148,163,184,0.6)',
+                          background: 'rgba(13,20,38,0.6)',
                         }}
                       >
                         ✓ Complete
@@ -786,14 +813,14 @@ export default function Operations() {
                     </div>
 
                     {/* Classified notice */}
-                    <div className="flex items-center gap-3 mt-6" style={{ color: 'rgba(90,127,181,0.35)' }}>
-                      <div className="flex-1 h-[1px]" style={{ background: 'rgba(26,47,85,0.4)' }} />
-                      <span className="text-[11px] font-mono tracking-[0.3em] uppercase">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 24, color: 'rgba(22,36,72,0.9)' }}>
+                      <div style={{ flex: 1, height: 1, background: 'rgba(22,36,72,0.5)' }} />
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.6875rem', letterSpacing: '0.3em', textTransform: 'uppercase' }}>
                         ██ CLASSIFIED
                       </span>
-                      <div className="flex-1 h-[1px]" style={{ background: 'rgba(26,47,85,0.4)' }} />
+                      <div style={{ flex: 1, height: 1, background: 'rgba(22,36,72,0.5)' }} />
                     </div>
-                    <p className="text-center text-[12px] font-mono tracking-wider mt-3" style={{ color: 'rgba(90,127,181,0.3)' }}>
+                    <p style={{ textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', letterSpacing: '0.1em', color: 'rgba(22,36,72,0.8)', marginTop: 12 }}>
                       To be published at a later date
                     </p>
                   </div>
