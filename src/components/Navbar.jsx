@@ -58,6 +58,11 @@ export default function Navbar() {
             onMouseEnter={e => e.target.style.color = '#e8edf5'}
             onMouseLeave={e => e.target.style.color = location.pathname === '/operations' ? '#dc2626' : '#94a3b8'}
           >OPERATIONS</Link>
+          <Link to="/supporters"
+            style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', color: location.pathname === '/supporters' ? '#d4af37' : '#94a3b8', padding: '8px 12px', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={e => e.target.style.color = '#e8edf5'}
+            onMouseLeave={e => e.target.style.color = location.pathname === '/supporters' ? '#d4af37' : '#94a3b8'}
+          >SUPPORTERS</Link>
           <a href="/perscom" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', color: '#94a3b8', padding: '8px 12px', textDecoration: 'none', marginLeft: 8, background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', borderRadius: 4, transition: 'all 0.2s' }}
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(220,38,38,0.2)'; e.currentTarget.style.color = '#e8edf5' }}
             onMouseLeave={e => { e.currentTarget.style.background = 'rgba(220,38,38,0.1)'; e.currentTarget.style.color = '#94a3b8' }}
@@ -90,6 +95,7 @@ export default function Navbar() {
               </button>
             ))}
             <Link to="/operations" onClick={() => setMobileOpen(false)} style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500, fontSize: '0.875rem', letterSpacing: '0.12em', color: '#94a3b8', padding: '12px 0', textDecoration: 'none' }}>OPERATIONS</Link>
+            <Link to="/supporters" onClick={() => setMobileOpen(false)} style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500, fontSize: '0.875rem', letterSpacing: '0.12em', color: '#d4af37', padding: '12px 0', textDecoration: 'none' }}>SUPPORTERS</Link>
             <a href="/perscom" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500, fontSize: '0.875rem', letterSpacing: '0.12em', color: '#dc2626', padding: '12px 0', textDecoration: 'none' }}>PERSCOM</a>
           </motion.div>
         )}

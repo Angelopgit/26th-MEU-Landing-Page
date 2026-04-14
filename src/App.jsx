@@ -13,6 +13,7 @@ import Playstyle from './components/Playstyle'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import Operations from './pages/Operations'
+import Supporters from './pages/Supporters'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -49,6 +50,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/operations" element={<Operations />} />
+      <Route path="/supporters" element={<Supporters />} />
     </Routes>
   )
 }

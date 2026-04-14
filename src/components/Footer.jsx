@@ -32,6 +32,10 @@ export default function Footer() {
             onMouseEnter={e => { e.target.style.color = '#94a3b8' }}
             onMouseLeave={e => { e.target.style.color = '#475569' }}
           >Operations</Link>
+          <Link to="/supporters" style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '0.875rem', color: '#475569', textDecoration: 'none', marginBottom: 10, transition: 'color 0.2s' }}
+            onMouseEnter={e => { e.target.style.color = '#d4af37' }}
+            onMouseLeave={e => { e.target.style.color = '#475569' }}
+          >Supporters</Link>
         </div>
 
         {/* Social */}
