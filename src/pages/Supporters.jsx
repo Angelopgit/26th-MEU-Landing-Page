@@ -33,10 +33,10 @@ function Counter({ to, prefix = '', suffix = '' }) {
 
 // ─── What funding covers ──────────────────────────────────────────────────────
 const PERKS = [
-  { icon: '🖥', label: 'Dedicated Server', desc: 'Private Arma Reforger server — always online, low latency' },
-  { icon: '🎮', label: 'Mod Hosting',      desc: 'Workshop mods, custom assets, and mission files' },
-  { icon: '🌐', label: 'Web Infrastructure', desc: 'PERSCOM, this site, and Discord bot hosting' },
-  { icon: '🎖', label: 'Unit Resources',   desc: 'Training materials, SOP docs, and recruitment tools' },
+  { icon: '🖥', label: 'Dedicated Servers',   desc: 'Arma Reforger private and public servers — always online, low latency' },
+  { icon: '🎮', label: 'Custom Mods',         desc: 'Custom-built mods, workshop assets, and mission files' },
+  { icon: '🌐', label: 'Web Infrastructure',  desc: 'PERSCOM, this site, and Discord bot hosting' },
+  { icon: '🎖', label: 'Unit Resources',      desc: 'Custom development, and hosting for other games' },
 ]
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
