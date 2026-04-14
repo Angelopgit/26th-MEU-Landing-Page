@@ -47,13 +47,13 @@ export default function Supporters() {
       <div style={{
         position: 'fixed', inset: 0, zIndex: 0,
         backgroundImage: 'url(/supporters-bg.png)',
-        backgroundSize: 'cover', backgroundPosition: 'center 40%', backgroundAttachment: 'fixed',
-        opacity: 0.13, pointerEvents: 'none',
+        backgroundSize: 'cover', backgroundPosition: 'center 40%',
+        opacity: 0.18, pointerEvents: 'none',
       }} />
-      {/* dark gradient overlay — heavier at top/bottom so text stays readable */}
+      {/* subtle dark tint — keeps text readable without hiding the image */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 0,
-        background: 'linear-gradient(to bottom, #06091a 0%, rgba(6,9,26,0.55) 30%, rgba(6,9,26,0.55) 70%, #06091a 100%)',
+        background: 'rgba(6,9,26,0.6)',
         pointerEvents: 'none',
       }} />
       <Navbar />
