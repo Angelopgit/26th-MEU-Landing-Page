@@ -162,6 +162,37 @@ function GoalBar() {
           ))}
         </div>
 
+        {/* Cost breakdown */}
+        <div style={{ borderTop: '1px solid rgba(22,36,72,0.7)', paddingTop: 24, marginBottom: 20 }}>
+          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.5625rem', letterSpacing: '0.18em', color: '#1e3a5f', marginBottom: 14 }}>COST BREAKDOWN</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              { label: 'Website',                              amount: 5,  color: '#3b82f6' },
+              { label: 'Discord Bot Hosting / PERSCOM',        amount: 5,  color: '#8b5cf6' },
+              { label: 'Private Operational Server',           amount: 30, color: '#f59e0b' },
+              { label: 'Public High Performance Conflict Server', amount: 60, color: '#dc2626' },
+            ].map(({ label, amount, color }) => {
+              const pct = Math.round((amount / MONTHLY_GOAL) * 100)
+              return (
+                <div key={label}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                    <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem', color: '#64748b' }}>{label}</span>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.6875rem', color, fontWeight: 700 }}>${amount}/mo</span>
+                  </div>
+                  <div style={{ height: 3, background: 'rgba(22,36,72,0.9)', borderRadius: 2, overflow: 'hidden' }}>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={inView ? { width: `${pct}%` } : { width: 0 }}
+                      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                      style={{ height: '100%', borderRadius: 2, background: color, opacity: 0.7 }}
+                    />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
         <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem', color: '#334155', textAlign: 'center', margin: 0 }}>
           Goal resets on the 1st of each month — recurring supporters keep us consistent.
         </p>
