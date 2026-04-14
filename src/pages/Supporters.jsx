@@ -4,8 +4,8 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 // ─── Config — update these when amounts change ───────────────────────────────
-const MONTHLY_GOAL   = 80
-const MONTHLY_RAISED = 52   // update each month
+const MONTHLY_GOAL   = 100
+const MONTHLY_RAISED = 10   // update each month
 const PATREON_URL    = 'https://www.patreon.com/Cub26thmeu?utm_source=26thmeu_site&utm_medium=supporters_page&utm_campaign=support_cta'
 
 const PCT = Math.min(Math.round((MONTHLY_RAISED / MONTHLY_GOAL) * 100), 100)
