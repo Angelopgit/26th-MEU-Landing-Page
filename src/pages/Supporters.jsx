@@ -116,6 +116,9 @@ export default function Supporters() {
           ))}
         </div>
 
+        {/* Thank You */}
+        <ThankYou />
+
         {/* Final CTA */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           style={{ textAlign: 'center' }}>
@@ -135,6 +138,63 @@ export default function Supporters() {
       <Footer />
       </div>{/* end content */}
     </div>
+  )
+}
+
+// ─── Thank You ────────────────────────────────────────────────────────────────
+function ThankYou() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.6 }}
+      style={{ marginBottom: 48 }}
+    >
+      <div style={{
+        position: 'relative', padding: '48px 40px', textAlign: 'center',
+        background: 'rgba(14,20,44,0.75)', border: '1px solid rgba(212,175,55,0.2)',
+        borderRadius: 8, backdropFilter: 'blur(8px)', overflow: 'hidden',
+      }}>
+        {/* corner accents */}
+        {[['0 auto auto 0','borderTop','borderLeft'],['0 0 auto auto','borderTop','borderRight'],['auto auto 0 0','borderBottom','borderLeft'],['auto 0 0 auto','borderBottom','borderRight']].map(([inset, b1, b2], i) => (
+          <div key={i} style={{ position: 'absolute', inset, width: 18, height: 18, [b1]: '1px solid rgba(212,175,55,0.4)', [b2]: '1px solid rgba(212,175,55,0.4)' }} />
+        ))}
+
+        {/* medal icon */}
+        <div style={{ marginBottom: 20 }}>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style={{ margin: '0 auto' }}>
+            <circle cx="12" cy="15" r="6" stroke="#d4af37" strokeWidth="1.5" />
+            <path d="M9 3l3 6 3-6" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 9v0" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M10 15l1.5 1.5L14 13" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.625rem', letterSpacing: '0.22em', color: '#d4af37', marginBottom: 16 }}>
+          ACKNOWLEDGED WITH HONOR
+        </div>
+
+        <h2 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 800, fontSize: 'clamp(1.5rem, 3.5vw, 2.25rem)', color: '#e8edf5', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+          Thank You to Our Supporters
+        </h2>
+
+        <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: '#64748b', lineHeight: 1.8, maxWidth: 580, margin: '0 auto 12px' }}>
+          To every Marine, supporter, and civilian backer who has contributed to the 26th MEU — your generosity keeps this unit operational. You are the reason we can run the servers, build the mods, and execute the missions.
+        </p>
+
+        <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9375rem', color: '#475569', lineHeight: 1.7, maxWidth: 520, margin: '0 auto 28px' }}>
+          Whether you give $5 or $60, you are part of this unit. <span style={{ color: '#d4af37', fontWeight: 600 }}>Semper Fidelis.</span>
+        </p>
+
+        {/* divider */}
+        <div style={{ width: '100%', height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.25), transparent)', marginBottom: 24 }} />
+
+        <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.625rem', letterSpacing: '0.15em', color: '#1e3a5f', margin: 0 }}>
+          26TH MARINE EXPEDITIONARY UNIT (SOC) — ARMA REFORGER
+        </p>
+      </div>
+    </motion.div>
   )
 }
 
