@@ -43,7 +43,23 @@ const PERKS = [
 export default function Supporters() {
   return (
     <div style={{ minHeight: '100vh', background: '#06091a', position: 'relative', overflowX: 'hidden' }}>
+      {/* ── Full-page background image ── */}
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 0,
+        backgroundImage: 'url(/supporters-bg.png)',
+        backgroundSize: 'cover', backgroundPosition: 'center 40%', backgroundAttachment: 'fixed',
+        opacity: 0.13, pointerEvents: 'none',
+      }} />
+      {/* dark gradient overlay — heavier at top/bottom so text stays readable */}
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 0,
+        background: 'linear-gradient(to bottom, #06091a 0%, rgba(6,9,26,0.55) 30%, rgba(6,9,26,0.55) 70%, #06091a 100%)',
+        pointerEvents: 'none',
+      }} />
       <Navbar />
+
+      {/* ── Content (above bg) ── */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', paddingTop: 140, paddingBottom: 80, textAlign: 'center', overflow: 'hidden' }}>
@@ -117,6 +133,7 @@ export default function Supporters() {
       </section>
 
       <Footer />
+      </div>{/* end content */}
     </div>
   )
 }
